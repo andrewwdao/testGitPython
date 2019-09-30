@@ -18,10 +18,10 @@ class LCD_I2C:
     _displaycontrol = int()
     _displaymode = int()
     #_numlines = int()
-    LCD_LINE_1 = 0x80  # LCD RAM address for the 1st line
-    LCD_LINE_2 = 0xC0  # LCD RAM address for the 2nd line
-    LCD_LINE_3 = 0x94  # LCD RAM address for the 3rd line
-    LCD_LINE_4 = 0xD4  # LCD RAM address for the 4th line
+    LCD_LINE1 = 0x80  # LCD RAM address for the 1st line (0x80|0x00)
+    LCD_LINE2 = 0xC0  # LCD RAM address for the 2nd line (0x80|0x40)
+    LCD_LINE3 = 0x94  # LCD RAM address for the 3rd line (0x80|0x14)
+    LCD_LINE4 = 0xD4  # LCD RAM address for the 4th line (0x80|0x54)
     # -----Command:
     LCD_DAT = 1  # Mode - Sending data
     LCD_CMD = 0  # Mode - Sending command
@@ -31,8 +31,8 @@ class LCD_I2C:
     LCD_DISPLAYCONTROL  = 0x08
     LCD_CURSORSHIFT     = 0x10
     LCD_FUNCTIONSET     = 0x20
-    LCD_SETCGRAMADDR    = 0x40
-    LCD_SETDDRAMADDR    = 0x80
+    #LCD_SETCGRAMADDR    = 0x40
+    #LCD_SETDDRAMADDR    = 0x80
     # -----Back light:
     LCD_BACKLIGHT = 0x08  # On
     LCD_NOBACKLIGHT = 0x00  # Off
@@ -139,10 +139,10 @@ class LCD_I2C:
         time.sleep(self.WAIT)
 
     def setCursor(self,col,row):
-        row_offsets = (self.LCD_LINE_1, self.LCD_LINE_2, self.LCD_LINE_3, self.LCD_LINE_4) #tuple #(0x00, 0x40, 0x14, 0x54) #tuple
+        row_offsets = (self.LCD_LINE1, self.LCD_LINE2, self.LCD_LINE3, self.LCD_LINE4) #tuple
         if row > self._rows:
             row = self._rows-1 # we count rows starting w / 0
-        self.command(self.LCD_SETDDRAMADDR | (col + row_offsets[row]))
+        self.command(col + row_offsets[row])
 
     def display(self):
         self._displaycontrol |= self.LCD_DISPLAYON

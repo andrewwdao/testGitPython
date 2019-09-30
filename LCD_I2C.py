@@ -1,7 +1,7 @@
 #
 # Project Tutorial Url:http://osoyoo.com/?p=1031
 #
-from builtins import range, len, int
+from builtins import range, len, int, ord
 
 import smbus
 import time
@@ -155,7 +155,7 @@ class LCD_I2C:
 
     def write(self,_string):
         for i in range(len(_string)):
-            self.send(_string[i],self.LCD_DAT)
+            self.send(ord(_string[i]),self.LCD_DAT)
 
     def send(self,_data,_mode): # write either command or data
         high_bits = _data & 0xF0

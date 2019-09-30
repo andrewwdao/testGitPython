@@ -12,7 +12,7 @@ class LCD_I2C:
     _Addr  = int()
     _cols  = int()
     _rows  = int()
-    _dotsize = int()
+    _chsize = int()
     _backlightval = int()
     _displayfunction = int()
     _displaycontrol = int()
@@ -70,10 +70,11 @@ class LCD_I2C:
     # bus = smbus.SMBus(0)  # Rev 1 Pi uses 0
     bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
 
-    def __init__(self,lcd_addr=0x27,lcd_cols=20,lcd_rows=4,lcd_backlight=LCD_NOBACKLIGHT):
+    def __init__(self,lcd_addr=0x27,lcd_cols=20,lcd_rows=4,lcd_backlight=LCD_NOBACKLIGHT,char_size=LCD_5X8DOTS):
         self._Addr = lcd_addr
         self._cols = lcd_cols
         self._rows = lcd_rows
+        self._chsize = char_size
         self._backlightval = lcd_backlight
     def init(self):
         self.bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
@@ -85,7 +86,7 @@ class LCD_I2C:
         #self._numlines = self._cols
 
         # for some 1 line displays you can select a 10 pixel high font
-        if (self._dotsize != 0) & (self._rows == 1):
+        if (self._chsize != 0) & (self._rows == 1):
             self._displayfunction |= self.LCD_5X10DOTS
         '''
         SEE PAGE 45/46 FOR INITIALIZATION SPECIFICATION!
@@ -138,7 +139,7 @@ class LCD_I2C:
         time.sleep(self.WAIT)
 
     def setCursor(self,col,row):
-        row_offsets = (0x00, 0x40, 0x14, 0x54) #tuple
+        row_offsets = (self.LCD_LINE_1, self.LCD_LINE_2, self.LCD_LINE_3, self.LCD_LINE_4) #tuple #(0x00, 0x40, 0x14, 0x54) #tuple
         if row > self._rows:
             row = self._rows-1 # we count rows starting w / 0
         self.command(self.LCD_SETDDRAMADDR | (col + row_offsets[row]))

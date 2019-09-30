@@ -19,6 +19,10 @@ def main(): # Main program block
     lcd.write("SYSTEM STARTING")
     lcd.setCursor(7, 1)
     lcd.write("...")
+    lcd.setCursor(3, 2)
+    lcd.write("SYSTEM STARTING")
+    lcd.setCursor(7, 3)
+    lcd.write("...")
 
 
 if __name__ == '__main__':

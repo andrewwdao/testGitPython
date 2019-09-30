@@ -17,7 +17,7 @@ class LCD_I2C:
     _displayfunction = int()
     _displaycontrol = int()
     _displaymode = int()
-    _numlines = int()
+    #_numlines = int()
     LCD_LINE_1 = 0x80  # LCD RAM address for the 1st line
     LCD_LINE_2 = 0xC0  # LCD RAM address for the 2nd line
     LCD_LINE_3 = 0x94  # LCD RAM address for the 3rd line
@@ -79,13 +79,13 @@ class LCD_I2C:
         self.bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
         _displayfunction = self.LCD_4BITMODE | self.LCD_1LINE | self.LCD_5X8DOTS
 
-        if self._cols > 1:
+        if self._rows > 1:
             _displayfunction |= self.LCD_LINES
 
-        self._numlines = self._cols
+        #self._numlines = self._cols
 
         # for some 1 line displays you can select a 10 pixel high font
-        if (self._dotsize != 0) & (self._cols == 1):
+        if (self._dotsize != 0) & (self._rows == 1):
             self._displayfunction |= self.LCD_5X10DOTS
         '''
         SEE PAGE 45/46 FOR INITIALIZATION SPECIFICATION!
@@ -124,6 +124,7 @@ class LCD_I2C:
         self.command(self.LCD_RETURNHOME)
         time.sleep(self.WAIT)
 
+    ########################### Command for Users ###############################
     def noBacklight(self): # Turn the (optional) backlight off/on
         self._backlightval=self.LCD_NOBACKLIGHT
         self.writeByte(0)
@@ -138,8 +139,8 @@ class LCD_I2C:
 
     def setCursor(self,col,row):
         row_offsets = (0x00, 0x40, 0x14, 0x54) #tuple
-        if row > self._numlines:
-            row = self._numlines-1 # we count rows starting w / 0
+        if row > self._rows:
+            row = self._rows-1 # we count rows starting w / 0
         self.command(self.LCD_SETDDRAMADDR | (col + row_offsets[row]))
 
     def display(self):
@@ -150,6 +151,7 @@ class LCD_I2C:
         self._displaycontrol &= ~self.LCD_DISPLAYON
         self.command(self.LCD_DISPLAYCONTROL | self._displaycontrol)
 
+    ########################### Mid level commands ###############################
     def command(self,_value):
         self.send(_value,self.LCD_CMD)
 
@@ -157,6 +159,7 @@ class LCD_I2C:
         for i in range(len(_string)):
             self.send(ord(_string[i]),self.LCD_DAT)
 
+    ########################### Low level data sending Commands ###############################
     def send(self,_data,_mode): # write either command or data
         high_bits = _data & 0xF0
         low_bits  = (_data << 4) & 0xF0
@@ -171,7 +174,6 @@ class LCD_I2C:
         self.bus.write_byte(self._Addr, (_data | self._backlightval))
 
     def pulseEnable(self,_data): # Toggle enable
-        #time.sleep(E_DELAY)
         self.writeByte(_data|self.En)   # Enable High
         time.sleep(self.PULSE)        # Enable pulse must be >450ns
         self.writeByte(_data&~self.En)  # Enable Low

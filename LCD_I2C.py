@@ -1,8 +1,16 @@
-#
-# Project Tutorial Url:http://osoyoo.com/?p=1031
-#
+"""------------------------------------------------------------*-
+  LCD I2C python module for Raspberry Pi
+  Tested on: Raspberry Pi 3 B+
+  (c) Can Tho University 2019
+  version 1.00 - 01/10/2019
+ --------------------------------------------------------------
+ * Credited tutorials and Libraries:
+ * - Drive i2c LCD Screen with Raspberry Pi:
+    http://osoyoo.com/?p=1031
+ * - LiquidCrystal_I2C library for Arduino:
+    https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
+ --------------------------------------------------------------"""
 from builtins import range, len, int, ord
-
 import smbus
 import time
 
@@ -17,7 +25,6 @@ class LCD_I2C:
     _displayfunction = int()
     _displaycontrol = int()
     _displaymode = int()
-    #_numlines = int()
     LCD_LINE1 = 0x80  # LCD RAM address for the 1st line (0x80|0x00)
     LCD_LINE2 = 0xC0  # LCD RAM address for the 2nd line (0x80|0x40)
     LCD_LINE3 = 0x94  # LCD RAM address for the 3rd line (0x80|0x14)
@@ -33,13 +40,10 @@ class LCD_I2C:
     LCD_FUNCTIONSET     = 0x20
     #LCD_SETCGRAMADDR    = 0x40
     #LCD_SETDDRAMADDR    = 0x80
-    # -----Back light:
-    LCD_BACKLIGHT = 0x08  # On
-    LCD_NOBACKLIGHT = 0x00  # Off
     # -----Important Bits:
     En = 0b00000100  # Enable bit
-    Rw = 0b00000010  # Read/Write bit
-    Rs = 0b00000001  # Register select bit
+    #Rw = 0b00000010  # Read/Write bit
+    #Rs = 0b00000001  # Register select bit
     # -----Function Flags:
     # flags for display entry mode
     LCD_ENTRYRIGHT  = 0x00
@@ -53,7 +57,6 @@ class LCD_I2C:
     LCD_CURSOROFF   = 0x00
     LCD_BLINKON     = 0x01
     LCD_BLINKOFF    = 0x00
-
     # flags for function set
     LCD_8BITMODE = 0x10
     LCD_4BITMODE = 0x00
@@ -61,7 +64,9 @@ class LCD_I2C:
     LCD_LINES = 0x08
     LCD_5X10DOTS = 0x04
     LCD_5X8DOTS = 0x00
-
+    # flags for Back light:
+    LCD_BACKLIGHT = 0x08  # On
+    LCD_NOBACKLIGHT = 0x00  # Off
     # -----Timing constants:
     PULSE = 0.000001 # 1us - Enable pulse must be >450ns
     DELAY = 0.0005   # 5ms
@@ -76,22 +81,15 @@ class LCD_I2C:
         self._rows = lcd_rows
         self._chsize = char_size
         self._backlightval = lcd_backlight
+        self._displayfunction = 0x00
+        self._displaycontrol = 0x00
+        self._displaymode = 0x00
     def init(self):
         self.bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
-        _displayfunction = self.LCD_4BITMODE | self.LCD_1LINE | self.LCD_5X8DOTS
-
-        if self._rows > 1:
-            _displayfunction |= self.LCD_LINES
-
-        #self._numlines = self._cols
-
-        # for some 1 line displays you can select a 10 pixel high font
-        if (self._chsize != 0) & (self._rows == 1):
-            self._displayfunction |= self.LCD_5X10DOTS
         '''
         SEE PAGE 45/46 FOR INITIALIZATION SPECIFICATION!
 	    according to datasheet, we need at least 40ms after power rises above 2.7V
-	    before sending commands. Raspberry Pi can turn on way better 4.5V so we'll wait 50
+	    before sending commands. Raspberry Pi can turn on way better 4.5V so we'll wait 50ms
         '''
         time.sleep(self.DELAY*100) #50ms
 
@@ -108,6 +106,16 @@ class LCD_I2C:
         self.command(0x32) # 110010 Initialise to become 4bit mode
 
         # Data length, number of lines, font size, etc
+        self._displayfunction = self.LCD_4BITMODE | self.LCD_1LINE | self.LCD_5X8DOTS
+
+        if self._rows > 1:
+            self._displayfunction |= self.LCD_LINES
+
+        # for some 1 line displays you can select a 10 pixel high font
+        if (self._chsize != self.LCD_5X8DOTS) & (self._rows == 1):
+            self._displayfunction |= self.LCD_5X10DOTS
+
+        # Send these information to the LCD
         self.command(self.LCD_FUNCTIONSET | self._displayfunction)
 
         # turn the display on with no cursor or blinking default (Display On,Cursor Off, Blink Off)

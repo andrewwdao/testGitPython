@@ -1,5 +1,5 @@
-from builtins import KeyboardInterrupt
 
+from builtins import KeyboardInterrupt
 from LCD_I2C import LCD_I2C
 
 # ---------------------------- Private Constant:

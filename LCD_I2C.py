@@ -6,9 +6,6 @@ from builtins import range, len, int
 import smbus
 import time
 
-from typing import Any
-
-
 class LCD_I2C:
     # ---------------------------- Private Constant:
     # -----Address and Screen parameter:
@@ -80,7 +77,7 @@ class LCD_I2C:
         self._backlightval = lcd_backlight
     def init(self):
         self.bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
-        _displayfunction = self.LCD_4BITMODE | self.LCD_1LINE | self.LCD_5X8DOTS;
+        _displayfunction = self.LCD_4BITMODE | self.LCD_1LINE | self.LCD_5X8DOTS
 
         if self._cols > 1:
             _displayfunction |= self.LCD_LINES
@@ -93,12 +90,12 @@ class LCD_I2C:
         '''
         SEE PAGE 45/46 FOR INITIALIZATION SPECIFICATION!
 	    according to datasheet, we need at least 40ms after power rises above 2.7V
-	    before sending commands. Raspberry Pi can turn on way befer 4.5V so we'll wait 50
+	    before sending commands. Raspberry Pi can turn on way better 4.5V so we'll wait 50
         '''
         time.sleep(self.DELAY*100) #50ms
 
         # Now we pull both RS and R/W low to begin commands
-        self.writeByte(self._backlightval) #// reset expanderand turn backlight off (Bit 8 =1)
+        self.writeByte(self._backlightval) #// reset expander and turn backlight off (Bit 8 =1)
         time.sleep(1)
 
         '''
@@ -127,6 +124,14 @@ class LCD_I2C:
         self.command(self.LCD_RETURNHOME)
         time.sleep(self.WAIT)
 
+    def noBacklight(self): # Turn the (optional) backlight off/on
+        self._backlightval=self.LCD_NOBACKLIGHT
+        self.writeByte(0)
+
+    def backlight(self):
+        self._backlightval=self.LCD_BACKLIGHT
+        self.writeByte(0)
+
     def clear(self):
         self.command(self.LCD_CLEARDISPLAY) #clear display, set cursor position to zero
         time.sleep(self.WAIT)
@@ -147,7 +152,7 @@ class LCD_I2C:
 
     def command(self,_value):
         self.send(_value,self.LCD_CMD)
-        
+
     def write(self,_string):
         for i in range(len(_string)):
             self.send(_string[i],self.LCD_DAT)

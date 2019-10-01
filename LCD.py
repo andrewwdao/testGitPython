@@ -7,7 +7,7 @@
  *
  *
  --------------------------------------------------------------"""
-import LCD_I2C
+from LCD_I2C import LCD_I2C
 
 
 class LCD(LCD_I2C):
@@ -15,7 +15,7 @@ class LCD(LCD_I2C):
     # -----Address and Screen parameter:
 
     # ------------------------------ Basic functions ------------------------------
-    def __init__(self, lcd_addr, lcd_cols, lcd_rows, lcd_backlight, char_size):
+    def __init__(self, lcd_addr=0x27, lcd_cols=20, lcd_rows=4, lcd_backlight=0x00, char_size=0x00):
         super().__init__(lcd_addr, lcd_cols, lcd_rows, lcd_backlight, char_size)
         self.begin()
         self.backlight()

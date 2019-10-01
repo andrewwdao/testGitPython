@@ -7,7 +7,7 @@
  *
  *
  --------------------------------------------------------------"""
-from LCD_I2C import LCD_I2C
+from Rasp_I2C import LCD_I2C
 
 
 class LCD(LCD_I2C):
@@ -20,10 +20,10 @@ class LCD(LCD_I2C):
         self.begin()
         self.backlight()
         self.clear()
-        self.setCursor(2, 1)  # row, column
+        self.setCursor(2, 0)  # row, column
         self.write("SYSTEM  STARTING")
         self.setCursor(7, 2)  # row, column
-        self.write("...")
+        self.write("....")
 
     def pointerPos(self, options, pointer):
         for pos in range(options):
@@ -36,7 +36,7 @@ class LCD(LCD_I2C):
 
     # ------------------------------ User level interfaces ------------------------------
     def waitPage(self):  # user can use RFID or their fingerprint
-        self.setCursor(4, 1)  # row, column
+        self.setCursor(4, 0)  # row, column
         self.write("SYSTEM READY")
         self.setCursor(5, 2)  # row, column
         self.write("waiting...")

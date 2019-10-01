@@ -38,6 +38,10 @@ def pointerPos(options, pointer):
             LCD.write(" ")
 
 
+def clear():
+    LCD.clear()
+
+
 # ------------------------------ User level interfaces ------------------------------
 def waitPage():  # user can use RFID or their fingerprint
     LCD.setCursor(4, 0)  # row, column

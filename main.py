@@ -10,7 +10,7 @@ def main():  # Main program block
     time.sleep(5)
     lcd.clear()
     lcd.addExtraInfoPage('Dao Minh An', 'B1509360')
-    lcd.pointerPos(2,1)
+    lcd.pointerPos(2, 1)
 
 
 if __name__ == '__main__':

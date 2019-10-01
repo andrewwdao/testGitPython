@@ -31,7 +31,7 @@ def begin():
 def pointerPos(options, pointer):
     options = options-1  # make it work from 0
     if options == 3:  # 3 = 4-1
-        for pos in range(options):
+        for pos in range(0, options):
             if pos == pointer:
                 LCD.setCursor(0, pos)  # row, column
                 LCD.write(">")
@@ -39,7 +39,7 @@ def pointerPos(options, pointer):
                 LCD.setCursor(0, pos)  # row, column
                 LCD.write(" ")
     elif options == 1:  # 1 = 2-1
-        for pos in range(options):
+        for pos in range(0, options):
             if pos == pointer:
                 LCD.setCursor(0, pos+2)  # row, column
                 LCD.write(">")

@@ -1,6 +1,6 @@
 
 from builtins import KeyboardInterrupt
-from LCD_I2C import LCD_I2C
+from LCD import LCD
 
 # ---------------------------- Private Constant:
 # -----Address and Screen parameter:
@@ -10,19 +10,9 @@ LCD_HEIGHT  = 4
 
 
 def main(): # Main program block
-    lcd = LCD_I2C(LCD_ADDRESS,LCD_WIDTH,LCD_HEIGHT)
+    lcd = LCD(LCD_ADDRESS,LCD_WIDTH,LCD_HEIGHT)
 
-    lcd.init()
-    lcd.backlight()
-    lcd.clear()
-    lcd.setCursor(0, 0)
-    lcd.write("SYSTEM STARTING")
-    lcd.setCursor(7, 1)
-    lcd.write("...")
-    lcd.setCursor(3, 2)
-    lcd.write("SYSTEM STARTING")
-    lcd.setCursor(7, 3)
-    lcd.write("...")
+    lcd.waitPage()
 
 
 if __name__ == '__main__':

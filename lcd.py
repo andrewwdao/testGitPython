@@ -133,9 +133,9 @@ def addFingerFailPage():
 def addRFIDPage():
     LCD.setCursor(6, 0)  # row, column
     LCD.write("ADD RFID")
-    LCD.setCursor(2, 2)  # row, column
+    LCD.setCursor(3, 2)  # row, column
     LCD.write("Put your RFID")
-    LCD.setCursor(2, 3)  # row, column
+    LCD.setCursor(3, 3)  # row, column
     LCD.write("in the reader")
 
 
@@ -235,7 +235,7 @@ def mainLockerPage():
     LCD.setCursor(0, 0)  # row, column
     LCD.write("ADMIN MENU:")
     LCD.setCursor(2, 1)  # row, column
-    LCD.write("4. Check Info Locker")  # check any locker that has information in
+    LCD.write("4. Info Locker")  # check any locker that has information in
 
 
 def infoLockerPage(name, mssv):

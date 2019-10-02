@@ -21,7 +21,7 @@ int main(int dumbInt,char **InputChar) {
   char*  firstByte2 = InputChar[6];
   printf("HC595 run!\n");
   HC595s_init();
-  HC595a_send(0x00, 0x00, 0xFF);
-  HC595a_send(0x00, 0x00, 0xFF);
+  HC595a_send(0x00, 0x00, 0b00000100);
+  HC595a_send(0x00, 0x00, 0b00000100);
   printf("HC595 stop!\n");
 }//end main

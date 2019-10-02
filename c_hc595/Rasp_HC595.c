@@ -31,7 +31,7 @@
 #define STCP_PIN_2 	4 //Pin connected to RCLK - LATCH_PIN (or Pin12 - ST_CP) of 74HC595 - pin 2 of wiringPi, GPIO 27
 #define SHCP_PIN_2 	5 //Pin connected to SRCLK - CLOCK_PIN (or Pin11 - SH_CP) of 74HC595 - pin 3 of wiringPi, GPIO 22
 
-#define BEGIN_STATE 0b11111111
+#define BEGIN_STATE 0b00000000
 // ------ Private function prototypes -------------------------
 
 // ------ Private variables -----------------------------------

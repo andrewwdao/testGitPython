@@ -34,7 +34,7 @@ void HC595_init() {
 		printf("setup wiringPi failed !");
 		return; 
 	}//end if
-	shiftSetup(1);
+	//shiftSetup(1);
 	//set pins to output so you can control the shift register
 	pinMode(DS_PIN, OUTPUT);
 	pinMode(STCP_PIN, OUTPUT);

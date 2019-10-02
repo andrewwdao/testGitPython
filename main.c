@@ -11,6 +11,8 @@
  *  8 - GND     9  - QH'    - left floated when using only 1 74HC595, connect to pin 14 (SER) of the next 74HC595 if using multiple ones.
  * 
  */
+#include <stdio.h>
+#include <stdlib.h>     /* atof */
 #include <wiringPi.h>
 #include <wiringShift.h>
 
@@ -21,9 +23,9 @@
 
 
 
-byte DATA1 = 0b10000000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
-byte DATA2 = 0b01000000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
-byte DATA3 = 0b00100000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA1 = 0b10000000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA2 = 0b01000000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA3 = 0b00100000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
 
 //byte DATA2 = 123;
 

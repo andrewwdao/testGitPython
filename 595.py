@@ -3,7 +3,7 @@ import time                             # calling for time to provide delays in 
 IO.setwarnings(False)           # do not show any warnings
 x=1
 
-DS_595 = 
+DS_595 =
 
 IO.setmode (IO.BCM)        # programming the GPIO by BCM pin numbers. (like PIN29 as‘GPIO5’)
 IO.setup(4,IO.OUT)            # initialize GPIO Pins as an output.

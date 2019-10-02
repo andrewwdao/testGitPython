@@ -23,9 +23,9 @@
 
 
 
-char DATA1 = 0b10000000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
-char DATA2 = 0b01000000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
-char DATA3 = 0b00100000; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA1 = 0b00000001; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA2 = 0b01000010; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA3 = 0b00000111; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
 
 //byte DATA2 = 123;
 

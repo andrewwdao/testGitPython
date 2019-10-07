@@ -1,4 +1,4 @@
-/* TRANSFERING DATA FROM SERIAL TO PARALLEL USING SPI PROTOCOL AND IC 74HC595
+  /* TRANSFERING DATA FROM SERIAL TO PARALLEL USING SPI PROTOCOL AND IC 74HC595
  *  
  *  ------74HC595
  *  1 - QB      16 - VCC
@@ -17,13 +17,13 @@
 #include <wiringShift.h>
 
 //WE ARE USING Raspberry Pi -  EVERY PIN IS ABLE TO CREATE PWM SIGNAL, CLOCK PIN AND DATA PIN ARE REQUIRED TO HAVE PWN PRODUCE CAPABILITY
-#define DS_PIN  	0 //Pin connected to SER - DATA PIN (or Pin14 - DS) of 74HC595 - pin 0 of wiringPi, GPIO17
+#define DS_PIN  	3 //Pin connected to SER - DATA PIN (or Pin14 - DS) of 74HC595 - pin 0 of wiringPi, GPIO17
 #define STCP_PIN 	2 //Pin connected to RCLK - LATCH_PIN (or Pin12 - ST_CP) of 74HC595 - pin 2 of wiringPi, GPIO 27
-#define SHCP_PIN 	3 //Pin connected to SRCLK - CLOCK_PIN (or Pin11 - SH_CP) of 74HC595 - pin 3 of wiringPi, GPIO 22
+#define SHCP_PIN 	0 //Pin connected to SRCLK - CLOCK_PIN (or Pin11 - SH_CP) of 74HC595 - pin 3 of wiringPi, GPIO 22
 
 
 
-char DATA1 = 0b00000001; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
+char DATA1 = 0b00000110; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
 char DATA2 = 0b01000010; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
 char DATA3 = 0b00000111; //THIS IS THE DATA YOU WANT TO SEND, formated in byte, only send a byte each time
 

@@ -52,9 +52,12 @@ def start():
     wf.close()
 
     # convert it to appropriate freq
-    converter = sox.Transformer()
-    converter.convert(samplerate=target_rate)
-    converter.build(org_wav,des_wav)
+    #converter = sox.Transformer()
+    #converter.convert(samplerate=target_rate)
+    #converter.build(org_wav,des_wav)
+    # equivalent to "sox -r target_rate org_wav des_wav" in command line
+    args = ['-r', str(target_rate), org_wav, des_wav]
+    sox.core.sox(args)
 
 def save_joy(joy_now):
     now = datetime.now()

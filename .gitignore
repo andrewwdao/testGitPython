@@ -75,3 +75,7 @@ workspace/build
 
 venv/
 RaspberryPi_main/venv
+
+obj/
+__pycache__/
+*.pyc

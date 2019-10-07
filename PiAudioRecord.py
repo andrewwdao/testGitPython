@@ -53,7 +53,7 @@ def start():
 
     # convert it to appropriate freq
     converter = sox.Transformer()
-    converter.convert(samplerate=target_rate,n_chanels=channels)
+    converter.convert(samplerate=target_rate)
     converter.build(org_wav,des_wav)
 
 def save_joy(joy_now):

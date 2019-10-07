@@ -22,6 +22,6 @@ int main(int dumbInt,char **InputChar) {
   printf("HC595 run!\n");
   HC595s_init();
   HC595a_send(0x00, 0x00, 0b00000100);
-  HC595a_send(0x00, 0x00, 0b00000100);
+  HC595b_send(0x00, 0x00, 0b00000100);
   printf("HC595 stop!\n");
 }//end main

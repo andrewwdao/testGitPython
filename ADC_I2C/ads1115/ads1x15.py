@@ -202,5 +202,5 @@ class ADS1x15(object):
             #self.buf[0] = self.bus.read_byte(self.address)
             #self.buf[1] = self.bus.read_byte(self.address)
             # self.buf = self.bus.read_i2c_block_data(self.address, 0, 2)  # read 16
-            return self.buf[0] << 8 | self.buf[1]
+            return ord(self.buf[0]) << 8 | ord(self.buf[1])
             # return read

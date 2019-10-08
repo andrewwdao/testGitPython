@@ -173,12 +173,16 @@ class ADS1x15(object):
         self.buf[2] = value & 0xFF
         # with self.i2c_device as i2c:
         #     i2c.write(self.buf)
-        self.bus.write_word_data(self.address, 3, 0x00 | self.buf[0] | self.buf[1] | self.buf[2])
+        # self.bus.write_word_data(self.address, 3, 0x00 | self.buf[0] | self.buf[1] | self.buf[2])
         # self.bus.write_byte_data(self.address, 0, self.buf[0])
         # time.sleep(0.01)
         # self.bus.write_byte_data(self.address, 1, self.buf[1])
         # time.sleep(0.01)
         # self.bus.write_byte_data(self.address, 2, self.buf[2])
+
+        # Write some bytes to address
+        msg = i2c_msg.write(self.address, [self.buf[0], self.buf[1], self.buf[2]])
+        self.bus.i2c_rdwr(msg)
 
     def _read_register(self, reg, fast=False):
         """Read 16 bit register value. If fast is True, the pointer register

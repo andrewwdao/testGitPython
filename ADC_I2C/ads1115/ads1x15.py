@@ -6,7 +6,7 @@ CircuitPython base class driver for ADS1015/1115 ADCs.
 
 * Author(s): Carter Nelson
 """
-from smbus import SMBus, i2c_msg
+from smbus2 import SMBus, i2c_msg
 # from micropython import const
 # from adafruit_bus_device.i2c_device import I2CDevice
 
@@ -38,7 +38,10 @@ class Mode:
 class ADS1x15(object):
     """Base functionality for ADS1x15 analog to digital converters."""
 
-    def __init__(self, address=_ADS1X15_DEFAULT_ADDRESS, gain=1, data_rate=None, mode=Mode.SINGLE
+    def __init__(self, address=_ADS1X15_DEFAULT_ADDRESS,
+                 gain=1,
+                 data_rate=None,
+                 mode=Mode.SINGLE
                  ):
         self._last_pin_read = None
         self.buf = bytearray(3)
@@ -168,7 +171,7 @@ class ADS1x15(object):
         self.buf[2] = value & 0xFF
         # with self.i2c_device as i2c:
         #     i2c.write(self.buf)
-        self.bus.write_i2c_block_data(self.address, 0, list(self.buf))
+        self.bus.write_i2c_block_data(0x48, 0, list(self.buf))
 
     def _read_register(self, reg, fast=False):
         """Read 16 bit register value. If fast is True, the pointer register

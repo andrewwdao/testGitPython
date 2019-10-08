@@ -191,9 +191,12 @@ class ADS1x15(object):
         else:
             # i2c.write_then_readinto(bytearray([reg]), self.buf, in_end=2)
             # Single transaction writing two bytes then read two at address 80
-            write = i2c_msg.write(self.address, list([reg]))
-            read = i2c_msg.read(self.address, 2)
-            self.bus.i2c_rdwr(write, read)
+            #write = i2c_msg.write(self.address, list([reg]))
+            #read = i2c_msg.read(self.address, 2)
+            #self.bus.i2c_rdwr(write, read)
             # self.buf = bytearray(read)
-        # return self.buf[0] << 8 | self.buf[1]
-            return read
+            self.bus.write_byte(self.address, 0, bytearray([reg]))
+            self.bus.read_byte_data(self.address, 0, self.buf[0])
+            self.bus.read_byte_data(self.address, 1, self.buf[1])
+            return self.buf[0] << 8 | self.buf[1]
+            # return read

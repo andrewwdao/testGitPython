@@ -1,16 +1,15 @@
-"""
-`ads1x15`
-====================================================
-
-CircuitPython base class driver for ADS1015/1115 ADCs.
-
-* Author(s): Carter Nelson
-"""
+"""------------------------------------------------------------*-
+  ADS1x15 python code for ADS1115 module
+  Tested on: Raspberry Pi 3 B+
+  (c) Minh-An Dao 2019
+  (c) Carter Nelson 2017
+  (c) Karl-Petter Lindegaard 2017
+  version 1.00 - 08/10/2019
+ --------------------------------------------------------------
+ *
+ *
+ --------------------------------------------------------------"""
 from smbus2 import SMBus, i2c_msg
-import time
-
-# from micropython import const
-# from adafruit_bus_device.i2c_device import I2CDevice
 
 
 _ADS1X15_DEFAULT_ADDRESS = 0x48
@@ -52,9 +51,8 @@ class ADS1x15(object):
         self.data_rate = self._data_rate_default() if data_rate is None else data_rate
         self.mode = mode
         self.address = address
-        # self.i2c_device = I2CDevice(i2c, address)
         # -----Open I2C interface:
-        # self.bus = SMBus.SMBus(0)  # Rev 1 Pi uses 0
+        # self.bus = SMBus(0)  # Rev 1 Pi uses 0
         self.bus = SMBus(1)  # Rev 2 Pi uses 1
 
     @property
@@ -171,15 +169,6 @@ class ADS1x15(object):
         self.buf[0] = reg
         self.buf[1] = (value >> 8) & 0xFF
         self.buf[2] = value & 0xFF
-        # with self.i2c_device as i2c:
-        #     i2c.write(self.buf)
-        # self.bus.write_word_data(self.address, 3, 0x00 | self.buf[0] | self.buf[1] | self.buf[2])
-        # self.bus.write_byte_data(self.address, 0, self.buf[0])
-        # time.sleep(0.01)
-        # self.bus.write_byte_data(self.address, 1, self.buf[1])
-        # time.sleep(0.01)
-        # self.bus.write_byte_data(self.address, 2, self.buf[2])
-
         # Write some bytes to address
         msg = i2c_msg.write(self.address, [self.buf[0], self.buf[1], self.buf[2]])
         self.bus.i2c_rdwr(msg)
@@ -188,27 +177,10 @@ class ADS1x15(object):
         """Read 16 bit register value. If fast is True, the pointer register
         is not updated.
         """
-        # with self.i2c_device as i2c:
-        #     if fast:
-        #         i2c.readinto(self.buf, end=2)
-        #     else:
-        #         i2c.write_then_readinto(bytearray([reg]), self.buf, in_end=2)
         if fast:
-            # i2c.readinto(self.buf, end=2)
             self.buf = self.bus.read_i2c_block_data(80, 0, 2)  # read 16 bit (2 byte of data)
         else:
-            # i2c.write_then_readinto(bytearray([reg]), self.buf, in_end=2)
-            # Single transaction writing two bytes then read two at address 80
             write = i2c_msg.write(self.address, [reg])
             read = i2c_msg.read(self.address, 2)
             self.bus.i2c_rdwr(write, read)
-            # self.buf = read.buf
-            # self.bus.write_byte(self.address, 0, bytearray([reg]))
-            # self.bus.read_byte_data(self.address, 0, self.buf[0])
-            # self.bus.read_byte_data(self.address, 1, self.buf[1])
-            # self.bus.write_byte(self.address, reg)
-            # self.buf[0] = self.bus.read_byte(self.address)
-            # self.buf[1] = self.bus.read_byte(self.address)
-            # self.buf = self.bus.read_i2c_block_data(self.address, 0, 2)  # read 16
-            # return ord(self.buf[0]) << 8 | ord(self.buf[1])
             return ord(read.buf[0]) << 8 | ord(read.buf[1])

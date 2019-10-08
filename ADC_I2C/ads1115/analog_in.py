@@ -1,11 +1,12 @@
-"""
-`analog_in`
-==============================
-AnalogIn for single-ended and
-differential ADC readings.
-
-* Author(s): Carter Nelson, adapted from MCP3xxx original by Brent Rubell
-"""
+"""------------------------------------------------------------*-
+  ADS1115 python code for ADS1115 module
+  Tested on: Raspberry Pi 3 B+
+  (c) Carter Nelson 2017
+  adapted from MCP3xxx original by Brent Rubell
+ --------------------------------------------------------------
+ *
+ *
+ --------------------------------------------------------------"""
 _ADS1X15_DIFF_CHANNELS = {
     (0, 1): 0,
     (0, 3): 1,

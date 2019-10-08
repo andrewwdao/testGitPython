@@ -5,7 +5,7 @@ from ads1115.analog_in import AnalogIn
 
 # ---------------------------- Private Parameters:
 # -----Address and Screen parameter:
-ADS_ADDRESS = 0x27
+ADS_ADDRESS = 0x48
 # Create the ADC object using the I2C bus
 ads = ADS.ADS1115(ADS_ADDRESS)
 

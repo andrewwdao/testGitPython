@@ -6,7 +6,7 @@ CircuitPython base class driver for ADS1015/1115 ADCs.
 
 * Author(s): Carter Nelson
 """
-from smbus2 import SMBus, i2c_msg
+from smbus import SMBus, i2c_msg
 # from micropython import const
 # from adafruit_bus_device.i2c_device import I2CDevice
 

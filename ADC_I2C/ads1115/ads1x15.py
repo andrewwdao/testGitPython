@@ -194,7 +194,7 @@ class ADS1x15(object):
             write = i2c_msg.write(self.address, reg)
             read = i2c_msg.read(self.address, 2)
             self.bus.i2c_rdwr(write, read)
-            self.buf = read.buf
+            #self.buf = read.buf
             #self.bus.write_byte(self.address, 0, bytearray([reg]))
             #self.bus.read_byte_data(self.address, 0, self.buf[0])
             #self.bus.read_byte_data(self.address, 1, self.buf[1])
@@ -202,5 +202,5 @@ class ADS1x15(object):
             #self.buf[0] = self.bus.read_byte(self.address)
             #self.buf[1] = self.bus.read_byte(self.address)
             # self.buf = self.bus.read_i2c_block_data(self.address, 0, 2)  # read 16
-            return ord(self.buf[0]) << 8 | ord(self.buf[1])
+            return read.buf
             # return read

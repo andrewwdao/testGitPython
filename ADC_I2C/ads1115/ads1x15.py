@@ -172,7 +172,7 @@ class ADS1x15(object):
         self.buf[2] = value & 0xFF
         # with self.i2c_device as i2c:
         #     i2c.write(self.buf)
-        # self.bus.write_i2c_block_data(self.address, 0, list(self.buf))
+        self.bus.write_i2c_block_data(self.address, 3, list(self.buf))
         #self.bus.write_byte_data(self.address, 0, self.buf[0])
         #time.sleep(0.01)
         #self.bus.write_byte_data(self.address, 1, self.buf[1])

@@ -7,7 +7,7 @@
  *
  *
  --------------------------------------------------------------"""
-from LCD.lcd import LCD_I2C
+from LCD.LCD_I2C import LCD_I2C
 
 # ---------------------------- Private Parameters:
 # -----Address and Screen parameter:

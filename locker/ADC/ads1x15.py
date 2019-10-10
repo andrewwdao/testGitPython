@@ -9,8 +9,7 @@
  *
  *
  --------------------------------------------------------------"""
-from I2C.i2c import I2C_ROOT
-from smbus2 import i2c_msg
+from smbus2 import SMBus, i2c_msg
 
 
 _ADS1X15_DEFAULT_ADDRESS = 0x48
@@ -37,7 +36,7 @@ class Mode:
     SINGLE = 0x0100
 
 
-class ADS1x15(I2C_ROOT):
+class ADS1x15(object):
     """Base functionality for ADS1x15 analog to digital converters."""
 
     def __init__(self, address=_ADS1X15_DEFAULT_ADDRESS,
@@ -45,9 +44,6 @@ class ADS1x15(I2C_ROOT):
                  data_rate=None,
                  mode=Mode.SINGLE
                  ):
-        # -----Open I2C interface:
-        # HAVE TO OPEN I2C BUS FIRST BEFORE CALLING THIS (USE I2C CLASS)
-
         self._last_pin_read = None
         self.buf = bytearray(3)
         self._data_rate = self._gain = self._mode = None
@@ -55,6 +51,9 @@ class ADS1x15(I2C_ROOT):
         self.data_rate = self._data_rate_default() if data_rate is None else data_rate
         self.mode = mode
         self.address = address
+        # -----Open I2C interface:
+        # self.bus = SMBus(0)  # Rev 1 Pi uses 0
+        self.bus = SMBus(1)  # Rev 2 Pi uses 1
 
     @property
     def data_rate(self):
@@ -179,10 +178,7 @@ class ADS1x15(I2C_ROOT):
         is not updated.
         """
         if fast:
-            # self.buf = self.bus.read_i2c_block_data(80, 0, 2)  # read 16 bit (2 byte of data)
-            # Read 2 bytes from address
-            self.buf = i2c_msg.read(self.address, 2)
-            self.bus.i2c_rdwr(self.buf)
+            self.buf = self.bus.read_i2c_block_data(80, 0, 2)  # read 16 bit (2 byte of data)
         else:
             write = i2c_msg.write(self.address, [reg])
             read = i2c_msg.read(self.address, 2)

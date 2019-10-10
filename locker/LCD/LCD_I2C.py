@@ -10,12 +10,11 @@
  * - LiquidCrystal_I2C library for Arduino:
     https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
  --------------------------------------------------------------"""
-# from smbus2 import SMBus
-from I2C.i2c import I2C_ROOT
+from smbus2 import SMBus
 import time
 
 
-class LCD_I2C(I2C_ROOT):
+class LCD_I2C:
     # ---------------------------- Private Parameters:
     # -----Address and Screen parameter:
     LCD_LINE1 = 0x80  # LCD RAM address for the 1st line (0x80|0x00)
@@ -65,15 +64,7 @@ class LCD_I2C(I2C_ROOT):
     DELAY = 0.0005  # 5ms
     WAIT = 0.002  # 2ms
 
-    def __init__(self, lcd_addr=0x27,
-                 lcd_cols=20,
-                 lcd_rows=4,
-                 lcd_backlight=LCD_NOBACKLIGHT,
-                 char_size=LCD_5X8DOTS
-                 ):
-        # -----Open I2C interface:
-        # HAVE TO OPEN I2C BUS FIRST BEFORE CALLING THIS (USE I2C CLASS)
-        self.bus = super().bus()
+    def __init__(self, lcd_addr=0x27, lcd_cols=20, lcd_rows=4, lcd_backlight=LCD_NOBACKLIGHT, char_size=LCD_5X8DOTS):
         self._Addr = lcd_addr
         self._cols = lcd_cols
         self._rows = lcd_rows
@@ -82,6 +73,9 @@ class LCD_I2C(I2C_ROOT):
         self._displayfunction = 0x00
         self._displaycontrol = 0x00
         self._displaymode = 0x00
+        # -----Open I2C interface:
+        # bus = smbus.SMBus(0)  # Rev 1 Pi uses 0
+        self.bus = SMBus(1)  # Rev 2 Pi uses 1
 
         """
                 SEE PAGE 45/46 FOR INITIALIZATION SPECIFICATION!

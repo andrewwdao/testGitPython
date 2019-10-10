@@ -73,7 +73,7 @@ class LCD_I2C(I2C_ROOT):
                  ):
         # -----Open I2C interface:
         # HAVE TO OPEN I2C BUS FIRST BEFORE CALLING THIS (USE I2C CLASS)
-
+        self.bus = super().bus()
         self._Addr = lcd_addr
         self._cols = lcd_cols
         self._rows = lcd_rows

@@ -10,7 +10,7 @@
  * - LiquidCrystal_I2C library for Arduino:
     https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
  --------------------------------------------------------------"""
-import smbus
+from smbus2 import SMBus
 import time
 
 
@@ -86,7 +86,7 @@ class LCD_I2C:
         self._displaymode = 0x00
         # -----Open I2C interface:
         # bus = smbus.SMBus(0)  # Rev 1 Pi uses 0
-        self.bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
+        self.bus = SMBus(1)  # Rev 2 Pi uses 1
 
         """
                 SEE PAGE 45/46 FOR INITIALIZATION SPECIFICATION!

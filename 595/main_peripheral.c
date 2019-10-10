@@ -20,7 +20,7 @@ int main(int dumbInt,char **InputChar) {
   char*  midByte2   = InputChar[5];
   char*  lastByte2 = InputChar[6];
   printf("HC595 run!\n");
-  HC595s_init();
+  //HC595s_init();
   HC595a_send(atoi(firstByte1), atoi(midByte1), atoi(lastByte1));
   HC595b_send(atoi(firstByte2), atoi(midByte2), atoi(lastByte2));
   printf("HC595 stop!\n");

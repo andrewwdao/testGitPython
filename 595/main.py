@@ -16,7 +16,9 @@ pi_dir = "./peripheral_init"
 pm_dir = "./peripheral_main " + "12" + " " + "34" + " " + "56" + " " + "12" + " " + "34" + " " + "56"
 
 while True:
+    print('off')
     subpro.Popen([pi_dir], shell=True)
     time.sleep(3)
+    print('on')
     subpro.Popen([pm_dir], shell=True)
     time.sleep(3)

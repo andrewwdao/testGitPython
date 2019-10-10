@@ -32,6 +32,10 @@ Initialize BOTH HC595 modules for 20 lockers
 */
 void HC595s_init();
 /**
+Set BOTH HC595 to its first state (all off)
+*/
+void HC595s_initState();
+/**
 Send data for the first HC595 module
 */
 void HC595a_send(char, char, char);

@@ -13,14 +13,16 @@ import subprocess as subpro
 import time
 
 pi_dir = "./peripheral_init"
-pm_dir = "./peripheral_main " + "12" + " " + "34" + " " + "56" + " " + "12" + " " + "34" + " " + "56"
+pm1_dir = "./peripheral_main " + "0" + " " + "0" + " " + "0" + " " + "0" + " " + "0" + " " + "0"
+pm2_dir = "./peripheral_main " + "12" + " " + "34" + " " + "56" + " " + "12" + " " + "34" + " " + "56"
 
-time.sleep(3) # peripheral start up time
+subpro.Popen([pi_dir], shell=True)
+time.sleep(2) # peripheral start up time
 
 while True:
     print('off')
-    subpro.Popen([pi_dir], shell=True)
+    subpro.Popen([pm1_dir], shell=True)
     time.sleep(1)
     print('on')
-    subpro.Popen([pm_dir], shell=True)
+    subpro.Popen([pm2_dir], shell=True)
     time.sleep(1)

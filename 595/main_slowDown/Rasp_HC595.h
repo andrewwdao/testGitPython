@@ -1,8 +1,8 @@
 /*------------------------------------------------------------*-
-  HC595 Controller - header file
+  74HC595 Controller - header file
   RASPBERRY PI 3B+
   (c) Minh-An Dao 2019
-  version 1.00 - 02/10/2019
+  version 1.30 - 10/10/2019
  --------------------------------------------------------------
  * TRANSFERING DATA FROM SERIAL TO PARALLEL USING SPI PROTOCOL AND IC 74HC595
  *  
@@ -22,7 +22,6 @@
 #include <stdio.h>
 #include <stdlib.h>     /* atof */
 #include <wiringPi.h>
-#include <wiringShift.h>
 
 // ------ Public constants ------------------------------------
 
@@ -31,10 +30,6 @@
 Initialize BOTH HC595 modules for 20 lockers
 */
 void HC595s_init();
-/**
-Set BOTH HC595 to its first state (all off)
-*/
-void HC595s_initState();
 /**
 Send data for the first HC595 module
 */

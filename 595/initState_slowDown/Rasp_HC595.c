@@ -1,8 +1,8 @@
 /*------------------------------------------------------------*-
-  HC595 Controller - function file
+  74HC595 Controller - function file
   RASPBERRY PI 3B+
   (c) Minh-An Dao 2019
-  version 1.00 - 02/10/2019
+  version 1.30 - 10/10/2019
  --------------------------------------------------------------
  * TRANSFERING DATA FROM SERIAL TO PARALLEL USING SPI PROTOCOL AND IC 74HC595
  *  
@@ -37,6 +37,14 @@
 Slow down the original ShiftOut Function
 */
 void myShiftOut(uint8_t,uint8_t,uint8_t,uint8_t);
+/**
+Send data for the first HC595 module
+*/
+void HC595a_send(char, char, char);
+/**
+Send data for the second HC595 module
+*/
+void HC595b_send(char, char, char);
 // ------ Private variables -----------------------------------
 
 // ------ PUBLIC variable definitions -------------------------
@@ -99,4 +107,4 @@ void myShiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val
   }//end for
 }//end myShiftOut
 //--------------------------------
-#endif //__RASP_STEPPER_CPP
+#endif //__RASP_HC595_CPP

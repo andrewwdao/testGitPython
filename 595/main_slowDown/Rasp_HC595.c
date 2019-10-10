@@ -1,8 +1,8 @@
 /*------------------------------------------------------------*-
-  HC595 Controller - function file
+  74HC595 Controller - function file
   RASPBERRY PI 3B+
   (c) Minh-An Dao 2019
-  version 1.00 - 02/10/2019
+  version 1.30 - 10/10/2019
  --------------------------------------------------------------
  * TRANSFERING DATA FROM SERIAL TO PARALLEL USING SPI PROTOCOL AND IC 74HC595
  *  
@@ -59,11 +59,6 @@ void HC595s_init() {
 	pinMode(SHCP_PIN_b, OUTPUT);
 }//end HC595s_init
 //--------------------------------
-void HC595s_initState() {
-  HC595a_send(BEGIN_STATE,BEGIN_STATE,BEGIN_STATE);
-  HC595b_send(BEGIN_STATE,BEGIN_STATE,BEGIN_STATE);
-}//end HC595s_init
-//--------------------------------
 //data will flow as FIFO
 void HC595a_send(char firstByte, char midByte, char lastByte) { //send data to the first locker module
   digitalWrite(STCP_PIN_a, LOW); // LATCH_PIN low, make sure the LEDs don't change while you're sending in bits
@@ -99,4 +94,4 @@ void myShiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val
   }//end for
 }//end myShiftOut
 //--------------------------------
-#endif //__RASP_STEPPER_CPP
+#endif //__RASP_HC595_CPP

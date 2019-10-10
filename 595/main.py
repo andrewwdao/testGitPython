@@ -20,7 +20,7 @@ time.sleep(3) # peripheral start up time
 while True:
     print('off')
     subpro.Popen([pi_dir], shell=True)
-    time.sleep(3)
+    time.sleep(1)
     print('on')
     subpro.Popen([pm_dir], shell=True)
-    time.sleep(3)
+    time.sleep(1)

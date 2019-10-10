@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>     /* atof */
 #include <wiringPi.h>
+#include <wiringShift.h>
 
 // ------ Public constants ------------------------------------
 

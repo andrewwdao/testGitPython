@@ -21,7 +21,6 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 ###############################################################################
 _OBJ =                                                                     \
             peripheral_init.o                                              \
-			peripheral_main.o                                              \
             Rasp_HC595.o												   \
 			
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
@@ -45,9 +44,6 @@ CFLAGS  = -l wiringPi -O2 -Wall -pipe -I$(IDIR)                            \
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
-
-peripheral_main: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 peripheral_init: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)

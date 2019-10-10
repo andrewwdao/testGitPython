@@ -93,9 +93,9 @@ void myShiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val
     }//end if else
 
     digitalWrite(clockPin, HIGH);
-    delayMicroseconds(1)
+    delayMicroseconds(1);
     digitalWrite(clockPin, LOW);
-    delayMicroseconds(1)
+    delayMicroseconds(1);
   }//end for
 }//end myShiftOut
 //--------------------------------

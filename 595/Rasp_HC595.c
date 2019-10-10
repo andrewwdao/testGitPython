@@ -59,7 +59,7 @@ void HC595s_init() {
 }//end HC595s_init
 //--------------------------------
 //data will flow as FIFO
-void HC595a_send(char lastByte, char midByte, char firstByte) { //send data to the first locker module
+void HC595a_send(char firstByte, char midByte, char lastByte) { //send data to the first locker module
   digitalWrite(STCP_PIN_a, LOW); // LATCH_PIN low, make sure the LEDs don't change while you're sending in bits
   shiftOut(DS_PIN_a, SHCP_PIN_a, MSBFIRST, lastByte); //DATA to the last 74HC595 in the chain -dataPin - clockPin - order - data
   shiftOut(DS_PIN_a, SHCP_PIN_a, MSBFIRST, midByte); //DATA to the next 74HC595 in the chain -dataPin - clockPin - order - data
@@ -68,7 +68,7 @@ void HC595a_send(char lastByte, char midByte, char firstByte) { //send data to t
 }//end HC595a_send
 //--------------------------------
 //data will flow as FIFO
-void HC595b_send(char lastByte, char midByte, char firstByte) { //send data to the second locker module
+void HC595b_send(char firstByte, char midByte, char lastByte) { //send data to the second locker module
   digitalWrite(STCP_PIN_b, LOW); // LATCH_PIN low, make sure the LEDs don't change while you're sending in bits
   shiftOut(DS_PIN_b, SHCP_PIN_b, MSBFIRST, lastByte); //DATA to the last 74HC595 in the chain -dataPin - clockPin - order - data
   shiftOut(DS_PIN_b, SHCP_PIN_b, MSBFIRST, midByte); //DATA to the next 74HC595 in the chain -dataPin - clockPin - order - data

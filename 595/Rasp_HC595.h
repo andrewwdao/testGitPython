@@ -20,7 +20,7 @@
 #ifndef __RASP_HC595_H
 #define __RASP_HC595_H
 #include <stdio.h>
-//#include <stdlib.h>     /* atof */
+#include <stdlib.h>     /* atof */
 #include <wiringPi.h>
 #include <wiringShift.h>
 

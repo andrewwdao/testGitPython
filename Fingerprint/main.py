@@ -1,9 +1,12 @@
 import fingerPrint
 
 fingerPrint.begin()
+fingerPrint.activate()
 
-print(fingerPrint.enroll())
+while True:
+    pass
+#  print(fingerPrint.enroll())
 
-print(fingerPrint.check())
+# print(fingerPrint.check())
 
-print(fingerPrint.delete(5))
+# print(fingerPrint.delete(5))

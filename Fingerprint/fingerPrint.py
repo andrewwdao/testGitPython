@@ -9,6 +9,7 @@
  *
  --------------------------------------------------------------"""
 from pyfingerprint.pyfingerprint import PyFingerprint
+import RPi.GPIO as GPIO  # default as BCM mode!
 import time
 
 # ---------------------------- Private Parameters:
@@ -17,6 +18,8 @@ FINGER_PORT = '/dev/ttyUSB0'
 FINGER_BAUDRATE = 57600
 FINGER_ADDRESS = 0xFFFFFFFF
 FINGER_PASSWORD = 0x00000000
+TOUCH_PIN = 10  # BCM Mode
+WAIT_TIME = 5  # waiting time between first and second scan of enroll func
 Finger = None
 
 
@@ -24,6 +27,9 @@ Finger = None
 def begin():  # Tries to initialize the sensor
     global Finger
     try:
+        # pulled up to avoid false detection.
+        # So we'll be setting up falling edge detection
+        GPIO.setup(TOUCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         Finger = PyFingerprint(FINGER_PORT, FINGER_BAUDRATE, FINGER_ADDRESS, FINGER_PASSWORD)
         if not Finger.verifyPassword():
             raise ValueError('Password for the Fingerprint module is wrong!')
@@ -54,7 +60,7 @@ def enroll():
             return ["EXISTED", positionNumber]
 
         print('Done.')
-        time.sleep(2)
+        time.sleep(WAIT_TIME)
         print('Second time. Waiting for finger...')
 
         while not Finger.readImage():  # Wait that finger is read again
@@ -118,3 +124,16 @@ def check():  # Search for the incoming finger in database
         print('Exception message: ' + str(e))
         return ["ERROR", e]
 
+
+def touchISR():
+    print('ISR!')
+    check()
+    print('Done!')
+
+
+def activate():
+    GPIO.add_event_detect(TOUCH_PIN, GPIO.FALLING, callback=touchISR, bouncetime=100)
+
+
+def deactivate():
+    GPIO.remove_event_detect(TOUCH_PIN)

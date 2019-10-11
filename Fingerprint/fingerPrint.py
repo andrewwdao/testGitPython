@@ -21,6 +21,7 @@ FINGER_PASSWORD = 0x00000000
 TOUCH_PIN = 10  # BCM Mode
 WAIT_TIME = 5  # waiting time between first and second scan of enroll func
 DEBOUNCE = 300
+START_CHECKING = False
 Finger = None
 
 
@@ -100,7 +101,7 @@ def delete(pos):  # Delete the template of the finger
         return False
 
 
-def check():  # Search for the incoming finger in database
+def scan():  # Search for the incoming finger in database
     try:
         print('Waiting for finger...')
         while not Finger.readImage():  # Wait for incoming finger is read
@@ -116,20 +117,24 @@ def check():  # Search for the incoming finger in database
 
         if positionNumber == -1:
             print('No match found!')
+            print(["NOT MATCHED", 0])
             return ["NOT MATCHED", 0]
         else:
             print('Template found at #' + str(positionNumber))
             print('Accuracy: ' + str(accuracyScore))
+            print(["MATCHED", positionNumber])
             return ["MATCHED", positionNumber]
     except Exception as e:
         print('Operation failed!')
         print('Exception message: ' + str(e))
+        print(["ERROR", e])
         return ["ERROR", e]
 
 
 def touchISR(channel):
     print('ISR!')
-    check()
+    global START_CHECKING
+    START_CHECKING = True
     print('Done!')
 
 
@@ -139,3 +144,10 @@ def activate():
 
 def deactivate():
     GPIO.remove_event_detect(TOUCH_PIN)
+
+
+def check():
+    global START_CHECKING
+    if START_CHECKING:
+        START_CHECKING = False
+        return scan()

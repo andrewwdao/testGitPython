@@ -20,7 +20,7 @@ FINGER_ADDRESS = 0xFFFFFFFF
 FINGER_PASSWORD = 0x00000000
 TOUCH_PIN = 10  # BCM Mode
 WAIT_TIME = 5  # waiting time between first and second scan of enroll func
-DEBOUNCE = 300
+DEBOUNCE = 10
 START_CHECKING = False
 Finger = None
 
@@ -132,10 +132,8 @@ def scan():  # Search for the incoming finger in database
 
 
 def touchISR(channel):
-    print('ISR!')
     global START_CHECKING
     START_CHECKING = True
-    print('Done!')
 
 
 def activate():

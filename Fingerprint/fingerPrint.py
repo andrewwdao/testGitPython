@@ -29,6 +29,7 @@ def begin():  # Tries to initialize the sensor
     try:
         # pulled up to avoid false detection.
         # So we'll be setting up falling edge detection
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(TOUCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         Finger = PyFingerprint(FINGER_PORT, FINGER_BAUDRATE, FINGER_ADDRESS, FINGER_PASSWORD)
         if not Finger.verifyPassword():

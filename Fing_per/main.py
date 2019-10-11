@@ -20,10 +20,12 @@ def main():
     fingerPrint.activate()
     while True:
         fingerBuffer = fingerPrint.check()
-        if fingerBuffer[0] == "MATCHED":
-            if fingerBuffer[1] == 0:
+        fingCode = fingerBuffer[0]
+        fingLocation = fingerBuffer[1]
+        if fingCode == "MATCHED":
+            if fingLocation == 0:
                 per.lock01(per.ON)
-            if fingerBuffer[1] == 2:
+            if fingLocation == 2:
                 per.lock01(per.OFF)
 
 

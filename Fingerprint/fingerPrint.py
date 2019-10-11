@@ -20,6 +20,7 @@ FINGER_ADDRESS = 0xFFFFFFFF
 FINGER_PASSWORD = 0x00000000
 TOUCH_PIN = 10  # BCM Mode
 WAIT_TIME = 5  # waiting time between first and second scan of enroll func
+DEBOUNCE = 300
 Finger = None
 
 
@@ -126,14 +127,14 @@ def check():  # Search for the incoming finger in database
         return ["ERROR", e]
 
 
-def touchISR():
+def touchISR(channel):
     print('ISR!')
     check()
     print('Done!')
 
 
 def activate():
-    GPIO.add_event_detect(TOUCH_PIN, GPIO.FALLING, callback=touchISR, bouncetime=100)
+    GPIO.add_event_detect(TOUCH_PIN, GPIO.FALLING, callback=touchISR, bouncetime=DEBOUNCE)
 
 
 def deactivate():

@@ -9,33 +9,38 @@
  *
  --------------------------------------------------------------"""
 import json
-import objcrypt
-
+from cryptography.fernet import Fernet
 # ---------------------------- Private Parameters:
 # -----Private key and CBC:
-AUTH_KEY = 'minhan7497'
-AUTH_CBC = 'MIS_LOCKER'
+AUTH_KEY = 'AadQrY8DTxdEAVjvgXObPZtZiVtQrpU3HYDlFJUO0Vg='
+DATABASE_FILE = 'dtb'
+EXPORTED_FILE = 'database.json'
 
 
 class Database:
     def __init__(self):
-        self.crypter = objcrypt.Crypter(AUTH_KEY, AUTH_CBC)
-        with open('database.json', 'r') as inputFile:
-            self.dec_dtb = json.load(inputFile)
-        self.enc_dtb = self.crypter.encrypt_json(self.dec_dtb)
-        with open('database.json', 'w') as outputFile:
-            outputFile.write(self.enc_dtb)
-        # with open('database.json', 'r') as inputFile:
-        #      self.dec_dtb = json.load(inputFile)
+        with open(DATABASE_FILE, 'rb') as inputFile:
+            self.enc_dtb = inputFile.read()
+        self.crypter = Fernet(AUTH_KEY)
+        dec_string = self.crypter.decrypt(self.enc_dtb).decode()
+        self.dec_dtb = json.loads(dec_string)
         self.admin = self.dec_dtb['admin']
         self.member = self.dec_dtb['member']
         self.number_of_admin = len(self.admin)
         self.number_of_member = len(self.member)
 
     def update(self):
-        self.enc_dtb = self.crypter.encrypt_object(self.dec_dtb)
-        with open('database.json', 'w') as outputFile:
-            json.dump(self.enc_dtb, outputFile)
+        self.enc_dtb = self.crypter.encrypt((json.dumps(self.dec_dtb)).encode())
+        with open(DATABASE_FILE, 'wb') as outputFile:
+            outputFile.write(self.enc_dtb)
+
+    def export(self, beautiful):
+        if beautiful:
+            with open(EXPORTED_FILE, 'w') as outputFile:
+                json.dump(self.dec_dtb, outputFile, indent=4)
+        else:
+            with open(EXPORTED_FILE, 'w') as outputFile:
+                json.dump(self.dec_dtb, outputFile)
 
     def addAdmin(self, rfid):
         self.admin.append({

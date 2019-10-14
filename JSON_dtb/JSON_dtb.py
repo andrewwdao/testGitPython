@@ -10,7 +10,6 @@
  --------------------------------------------------------------"""
 import json
 import objcrypt
-import pycryptodome
 
 # ---------------------------- Private Parameters:
 # -----Private key and CBC:

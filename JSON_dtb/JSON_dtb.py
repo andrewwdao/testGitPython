@@ -22,9 +22,9 @@ class Database:
         self.crypter = objcrypt.Crypter(AUTH_KEY, AUTH_CBC)
         with open('database.json', 'r') as inputFile:
             self.dec_dtb = json.load(inputFile)
-        self.enc_dtb = self.crypter.encrypt_object(self.dec_dtb)
+        self.enc_dtb = self.crypter.encrypt_json(self.dec_dtb)
         with open('database.json', 'w') as outputFile:
-            json.dump(self.enc_dtb, outputFile)
+            outputFile.write(self.enc_dtb)
         # with open('database.json', 'r') as inputFile:
         #      self.dec_dtb = json.load(inputFile)
         self.admin = self.dec_dtb['admin']

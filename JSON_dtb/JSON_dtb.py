@@ -21,14 +21,8 @@ class Database:
     def __init__(self):
         self.crypter = objcrypt.Crypter(AUTH_KEY, AUTH_CBC)
         with open('database.json', 'r') as inputFile:
-            self.dec_dtb = json.load(inputFile)
-        self.enc_dtb = self.crypter.encrypt_json(self.dec_dtb)
-        with open('database.json', 'w') as outputFile:
-            json.dump(self.enc_dtb, outputFile)
-        # self.dec_dtb = self.crypter.decrypt_json(self.enc_dtb)
-        # with open('database.json', 'r') as inputFile:
-        #     self.enc_dtb = json.load(inputFile)
-        # self.dec_dtb = self.crypter.decrypt_json(self.enc_dtb)
+            self.enc_dtb = json.load(inputFile)
+        self.dec_dtb = self.crypter.decrypt_json(self.enc_dtb)
         self.admin = self.dec_dtb['admin']
         self.member = self.dec_dtb['member']
         self.number_of_admin = len(self.admin)

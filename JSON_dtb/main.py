@@ -22,31 +22,31 @@ def main():
 
 #    database.delMember(input('Put your member MSSV here to delete: '))
 
-    # database.addAdmin(input('Put your admin RFID here: '))
-    #
-    # print('First member')
-    # database.addMember(input('Type in your name: '),
-    #                    input('Type in your MSSV: '),
-    #                    input('Type in your RFID: '),
-    #                    int(input('Type in your FingerPrint number: ')))
-    #
-    # print('Second member')
-    # database.addMember(input('Type in your name: '),
-    #                    input('Type in your MSSV: '),
-    #                    input('Type in your RFID: '),
-    #                    int(input('Type in your FingerPrint number: ')))
-    #
-    # print('Third member')
-    # database.addMember(input('Type in your name: '),
-    #                    input('Type in your MSSV: '),
-    #                    input('Type in your RFID: '),
-    #                    int(input('Type in your FingerPrint number: ')))
-    #
-    # fingerTemp = database.searchFinger(int(input('Finger Number you want to search: ')))
-    # if fingerTemp[0]:
-    #     data = database.getInfo(fingerTemp[1])
-    #     print('Name: '+data[0])
-    #     print('MSSV: '+data[1])
+     database.addAdmin(input('Put your admin RFID here: '))
+
+    print('First member')
+    database.addMember(input('Type in your name: '),
+                       input('Type in your MSSV: '),
+                       input('Type in your RFID: '),
+                       int(input('Type in your FingerPrint number: ')))
+
+    print('Second member')
+    database.addMember(input('Type in your name: '),
+                       input('Type in your MSSV: '),
+                       input('Type in your RFID: '),
+                       int(input('Type in your FingerPrint number: ')))
+
+    print('Third member')
+    database.addMember(input('Type in your name: '),
+                       input('Type in your MSSV: '),
+                       input('Type in your RFID: '),
+                       int(input('Type in your FingerPrint number: ')))
+
+    fingerTemp = database.searchFinger(int(input('Finger Number you want to search: ')))
+    if fingerTemp[0]:
+        data = database.getInfo(fingerTemp[1])
+        print('Name: '+data[0])
+        print('MSSV: '+data[1])
 
 
 if __name__ == '__main__':

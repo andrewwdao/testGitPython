@@ -18,11 +18,11 @@ def main():
     database.delAllAdmin()
     database.delAllMember()
 
-#    database.delAdmin(input('Put your admin RFID here to delete: '))
+    # database.delAdmin(input('Put your admin RFID here to delete: '))
 
-#    database.delMember(input('Put your member MSSV here to delete: '))
+    # database.delMember(input('Put your member MSSV here to delete: '))
 
-     database.addAdmin(input('Put your admin RFID here: '))
+    database.addAdmin(input('Put your admin RFID here: '))
 
     print('First member')
     database.addMember(input('Type in your name: '),
